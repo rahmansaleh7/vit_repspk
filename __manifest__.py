@@ -3,13 +3,13 @@
     'name': "vit_repspk",
 
     'summary': """
-        Report Surat Perintah Kerja""",
+        Membuat Report Surat Perintah Kerja""",
 
     'description': """
-        Membuat Report Surat Perintah Kerja
+        Report Surat perintah Kerja
     """,
 
-    'author': "Iqbal A Saleh",
+    'author': "Iqbal Abdurrahman",
     'website': "http://www.vitraining.com",
 
     # Categories can be used to filter modules in modules listing
@@ -19,7 +19,10 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': [
+                'base',
+                'stock',
+                ],
 
     # always loaded
     'data': [

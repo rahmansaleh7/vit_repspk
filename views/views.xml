@@ -1,60 +1,77 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
-    <!--
-    <record model="ir.ui.view" id="vit_repspk.list">
-      <field name="name">vit_repspk list</field>
-      <field name="model">vit_repspk.vit_repspk</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </tree>
-      </field>
-    </record>
-    -->
+    
+    <!-- Template Paper Format -->
+    <record id="paperformat_report_surat_kerja" model="report.paperformat">
+      <field name="name">Letter Po</field>
+      <field name="default" eval="True" />
+      <field name="format">Letter</field>
+      <field name="page_height">0</field>
+      <field name="page_width">0</field>
+      <field name="orientation">Portrait</field>
+      <field name="margin_top">18</field>
+      <field name="margin_bottom">20</field>
+      <field name="margin_left">10</field>
+      <field name="margin_right">10</field>
+      <field name="header_line" eval="False" />
+      <field name="header_spacing">0</field>
+      <field name="dpi">90</field>
+  </record>
 
-    <!-- actions opening views on models -->
-    <!--
-    <record model="ir.actions.act_window" id="vit_repspk.action_window">
-      <field name="name">vit_repspk window</field>
-      <field name="res_model">vit_repspk.vit_repspk</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-    -->
+  <!-- Inherit Action Report -->
+  <report 
+      id="report_spk"
+      string="Surat Perintah Kerja"
+      model="stock.picking" 
+      report_type="qweb-pdf"
+      paperformat="vit_repspk.paperformat_report_surat_kerja"
+      file="vit_repspk.surat_kerja" 
+      name="vit_repspk.surat_kerja" 
+  />
 
-    <!-- server action to the one above -->
-    <!--
-    <record model="ir.actions.server" id="vit_repspk.action_server">
-      <field name="name">vit_repspk server</field>
-      <field name="model_id" ref="model_vit_repspk_vit_repspk"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": self._name,
-        }
-      </field>
-    </record>
-    -->
+  <!-- Template JS (Required) -->
+  <template id="external_layout_kontrak">
+    <t t-if="not o" t-set="o" t-value="doc"/>
 
-    <!-- Top menu item -->
-    <!--
-    <menuitem name="vit_repspk" id="vit_repspk.menu_root"/>
-    -->
-    <!-- menu categories -->
-    <!--
-    <menuitem name="Menu 1" id="vit_repspk.menu_1" parent="vit_repspk.menu_root"/>
-    <menuitem name="Menu 2" id="vit_repspk.menu_2" parent="vit_repspk.menu_root"/>
-    -->
-    <!-- actions -->
-    <!--
-    <menuitem name="List" id="vit_repspk.menu_1_list" parent="vit_repspk.menu_1"
-              action="vit_repspk.action_window"/>
-    <menuitem name="Server to list" id="vit_repspk" parent="vit_repspk.menu_2"
-              action="vit_repspk.action_server"/>
-    -->
+    <t t-if="not company">
+        <!-- Multicompany -->
+        <t t-if="company_id">
+            <t t-set="company" t-value="company_id"/>
+        </t>
+        <t t-elif="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id.sudo()"/>
+        </t>
+        <t t-else="else">
+            <t t-set="company" t-value="res_company"/>
+        </t>
+    </t>
+    <t t-call="vit_repspk.external_layout_standard_kontrak"><t t-raw="0"/></t>
+  </template>
+
+  <template id="external_layout_standard_kontrak">
+    <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+      <t t-call="web.address_layout"/>
+      <t t-raw="0"/>
+    </div>
+  </template>
+
+  <!-- Template Halaman Isi -->
+  <template id="report_surat_kerja_document">
+    <t t-call="vit_repspk.external_layout_kontrak">
+      <div class="page" style="font-size: 10px;">
+
+      <h1>SURAT PERINTAH KERJA</h1>
+
+      </div>
+    </t>
+  </template>
+
+
+  <template id="surat_kerja">
+    <t t-call="web.html_container">
+      <t t-call="vit_repspk.report_surat_kerja_document"/>
+    </t>
+  </template>
+
   </data>
 </odoo>
