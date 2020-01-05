@@ -63,6 +63,59 @@
       <h1>SURAT PERINTAH KERJA</h1>
 
       </div>
+
+      <div class="oe-structure">
+        <table class="table">
+          <tr>
+            <td>
+              Pemeriksa
+              <br></br>
+              <br></br>
+              <br></br>
+              Satpam
+            </td>
+            <td>
+              Pembawa Kendaraan
+              <br></br>
+              <br></br>
+              <br></br>
+              Driver
+            </td>
+            <td>
+              Penerima
+              <br></br>
+              <br></br>
+              <br></br>
+              Bagian Subcount
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Dir/Mgr/SPV
+              <br></br>
+              <br></br>
+              <br></br>
+              Bagian PPIC
+            </td>
+            <td>
+              Dir/Mgr/SPV
+              <br></br>
+              <br></br>
+              <br></br>
+              Bagian Purchasing
+            </td>
+            <td>
+              Dir/Mgr/SPV
+              <br></br>
+              <br></br>
+              <br></br>
+              Bagian Warehouse
+            </td>
+          </tr>
+
+        </table>
+      </div>
     </t>
   </template>
 
